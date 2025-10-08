@@ -1,0 +1,22 @@
+  - name: "creating ec2 and route 53 records"
+    hosts: local
+    connection: local
+    become : yes
+    vars: 
+      AMI_ID: "ami-09c813fb71547fc4f"
+      SG_ID: "sg-0494b89cb6d5db382"
+      ZONE_ID: "Z01261487TFX8V684K99"
+      DOMAIN_NAME: "saws86s.fun"
+      instance:
+       -mongodb
+
+    tasks:
+     -name: "creating ec2 instace"
+    amazon.aws.ec2_instance:
+       name: "{{ item }}"
+       instance_type: t3.micro
+       security_group: "{{SG_ID}}"
+       image_id: "{{AMI_ID}}"
+       tags:
+        nmae: "{{item}}"
+    loop: "{{instace}}"
