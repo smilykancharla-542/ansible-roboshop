@@ -11,12 +11,16 @@
        -mongodb
 
     tasks:
-     -name: "creating ec2 instace"
-    amazon.aws.ec2_instance:
-       name: "{{ item }}"
-       instance_type: t3.micro
-       security_group: "{{SG_ID}}"
-       image_id: "{{AMI_ID}}"
-       tags:
-        nmae: "{{item}}"
-    loop: "{{instace}}"
+     - name: "creating ec2 instace"
+       amazon.aws.ec2_instance:
+          name: "{{ item }}"
+          instance_type: t3.micro
+          security_group: "{{SG_ID}}"
+          image_id: "{{AMI_ID}}"
+          tags:
+            name: "{{item}}"
+       loop: "{{instace}}"
+       register: ec2_output
+     - name: "printing ec2 details"
+       ansible.builtin.debug:
+         msg: "{{ec2_output}}"
