@@ -8,7 +8,7 @@
       ZONE_ID: "Z01261487TFX8V684K99"
       DOMAIN_NAME: "saws86s.fun"
       instance:
-       -mongodb
+       - mongodb
 
     tasks:
      - name: "creating ec2 instace"
