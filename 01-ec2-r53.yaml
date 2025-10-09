@@ -1,7 +1,7 @@
   - name: "creating ec2 and route 53 records"
     hosts: local
     connection: local
-    become : yes
+    
     vars: 
       ami_id: ami-09c813fb71547fc4f
       sg_id: sg-0494b89cb6d5db382
