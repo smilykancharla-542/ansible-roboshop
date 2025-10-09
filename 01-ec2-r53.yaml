@@ -8,11 +8,11 @@
       ZONE_ID: "Z01261487TFX8V684K99"
       DOMAIN_NAME: "saws86s.fun"
        # we can pass instances through command line using -e
-    # instances: 
-    # - mongodb
-    # - redis
-    # - mysql
-    # - rabbitmq
+      instances: 
+      - mongodb
+      - redis
+      - mysql
+      - rabbitmq
     tasks:
      - name: create ec2 instance
        amazon.aws.ec2_instance:
