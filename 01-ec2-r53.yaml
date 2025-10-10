@@ -10,7 +10,7 @@
        # we can pass instances through command line using -e
       instances: 
       - mongodb
-      - redis
+      
       
     tasks:
      - name: create ec2 instance
