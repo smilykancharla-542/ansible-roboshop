@@ -60,8 +60,8 @@
      - name: create route53 record for frontend
        amazon.aws.route53:
          state: present
-         zone: "{{ domain_name }}"
-         record: "{{ domain_name }}" # daws86s.fun
+         zone: "{{ DOMAIN_NAM }}"
+         record: "{{ DOMAIN_NAM }}" # saws86s.fun
          type: A
          ttl: 1
          value: "{{ item.instances[0].public_ip_address }}"
