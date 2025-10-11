@@ -11,7 +11,7 @@
          name: nodejs
          state: present
 
-     - name: "create system cart"
+     - name: "create system user"
        ansible.builtin.user:
          name: roboshop
          shell: /sbin/nologin
