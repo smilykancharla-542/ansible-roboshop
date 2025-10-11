@@ -36,10 +36,11 @@
           src: https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip 
           dest: /tmp/shipping.zip
 
-      - name: unzip shipping code
-        ansible.builtin.Unarchive:
-          src: /tmp/shipping.zip
-          dest:  /app
+      - name: unzip payment code in /app
+        ansible.builtin.unarchive:
+          src: /tmp/payment.zip
+          dest: /app
+          remote_src: yes
       - name: install dependencies
         ansible.builtin.command: mvn clean package 
         args:
