@@ -1,0 +1,72 @@
+  - name: set up dispatch server
+    hosts: dispatch
+    become: yes
+    tasks:
+      - name: install golang
+        ansible.builtin.dnf:
+          name: golang
+          state: present
+
+      - name: "create system user"
+        ansible.builtin.user:
+         name: roboshop
+         shell: /sbin/nologin
+         system: true
+         comment: "roboshop system user"
+         home: /app
+## deleteing /app directory if run second time creates new one
+      - name: "create app directory"
+        ansible.builtin.file:
+         path: /app
+         state: absent
+
+      - name: "create app directory"
+        ansible.builtin.file:
+         path: /app
+         state: directory
+
+      - name: "delete previous code"
+        ansible.builtin.file:
+         path: /tmp/dispatch.zip
+         state: absent
+      - name: Download dispatch code
+        ansible.builtin.get_url:
+         url: https://roboshop-artifacts.s3.amazonaws.com/dispatch-v3.zip
+         dest: /tmp/dispatch.zip
+
+      - name: unzip dispatch code in /app
+        ansible.builtin.unarchive:
+          src: /tmp/dispatch.zip
+          dest: /app
+          remote_src: yes
+
+      - name: install dependencies
+        ansible.builtin.command: go mod init dispatch
+        args:
+          chdir: /app
+          
+      - name: install dependencies
+        ansible.builtin.command: go get
+        args:
+          chdir: /app
+
+      - name: install dependencies
+        ansible.builtin.command: go build
+        args:
+          chdir: /app
+         
+    
+        args:
+          chdir: /app
+
+      - name: copy dispatch.service file
+        ansible.builtin.copy:
+         src: dispatch.service
+         dest: /etc/systemd/system/dispatch.service
+
+      - name: "start ,enable and daemon reload user"
+        ansible.builtin.service:
+         name: user
+         state: started
+         enabled: yes
+         daemon_reload: yes
