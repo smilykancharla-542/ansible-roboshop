@@ -27,7 +27,7 @@
           state: directory
 
       - name: Delete catalogue file
-         ansible.builtin.file:
+        ansible.builtin.file:
           path: /tmp/catalogue.zip
           state: absent
 
