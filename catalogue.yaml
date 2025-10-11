@@ -61,7 +61,7 @@
            name: mongodb-mongosh
            state: present
        - name: "loading data "
-         ansible.builtin.shell: mongosh --host mongodb.saws86s.fun </app/db/master-data.js
+         ansible.builtin.shell: mongosh mongodb.saws86s.fun --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')"
          register: catalogue_data
 
        - name: "print output"
