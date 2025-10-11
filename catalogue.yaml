@@ -64,6 +64,16 @@
          ansible.builtin.shell: mongosh mongodb.saws86s.fun --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')"
          register: catalogue_data
 
-       - name: "print output"
-         ansible.builtin.debug:
-          msg: "{{ catalogue_data }}"
+      # - name: "print output"
+       #  ansible.builtin.debug:
+       #   msg: "{{ catalogue_data }}"
+       - name: load products into mongodb
+         ansible.builtin.shell: mongosh --host mongodb.saws86s.fun </app/db/master-data.js
+         when: catalogue_output.stdout | int < 0
+         
+       - name: daemon reload enable and start
+         ansible.builtin.systemd_service:
+           name: catalogue
+           enabled: true
+           state: started
+           daemon_reload: true
