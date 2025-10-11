@@ -13,7 +13,7 @@
       #- redis
       #- mysql
       #- rabbitmq
-       - catalogue
+       #- catalogue
       
       
     tasks:
