@@ -12,11 +12,11 @@
          state: present
 
      - name: "create system cart"
-       ansible.builtin.cart:
+       ansible.builtin.user:
          name: roboshop
          shell: /sbin/nologin
          system: true
-         comment: "roboshop system cart"
+         comment: "roboshop system user"
          home: /app
 ## deleteing /app directory if run second time creates new one
      - name: "create app directory"
